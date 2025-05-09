@@ -1,0 +1,68 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  body {
+    background-color: #fff7f0;
+    color: #333;
+    line-height: 1.6;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .hero {
+    padding: 2rem;
+    background-color: #fde8e9;
+    color: #a0526d;
+  }
+  
+  .details, .mapa, .formulario {
+    padding: 2rem;
+    margin-top: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+  
+  footer {
+    margin-top: 3rem;
+    padding: 1rem;
+    background-color: #f3dfe3;
+  }
+  
+  /* Música */
+  #play-music {
+    margin: 1rem auto;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #a0526d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Animaciones */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out forwards;
+  }
+  .fade-in.delay-1 {
+    animation-delay: 0.3s;
+  }
+  .fade-in.delay-2 {
+    animation-delay: 0.6s;
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
