@@ -5,40 +5,218 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Invitación de Boda - Alex & Cris</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <script defer src="scripts.js"></script>
 </head>
 <body>
-  <audio id="bg-music" loop>
-    <source src="musica/musica-fondo.mp3" type="audio/mpeg">
-    Tu navegador no soporta audio HTML5.
-  </audio>
-  <button id="play-music">▶️ Reproducir Música</button>
+  <!-- Botón flotante para reproducir música -->
+  <div class="music-control">
+    <audio id="bg-music" loop>
+      <source src="cancion.mp3" type="audio/mpeg">
+      Tu navegador no soporta audio HTML5.
+    </audio>
+    <button id="play-music" aria-label="Reproducir música">
+      <i class="fas fa-play" id="play-icon"></i>
+      <i class="fas fa-pause" id="pause-icon" style="display: none;"></i>
+    </button>
+  </div>
 
+  <!-- Hero section con nombres y fecha -->
   <header class="hero">
-    <h1 class="fade-in">Alex & Cris</h1>
-    <p class="fade-in delay-1">¡Nos casamos!</p>
-    <p class="fade-in delay-2">6 de diciembre de 2025</p>
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1 class="fade-in">Alex & Cris</h1>
+      <p class="fade-in delay-1">¡Nos casamos!</p>
+      <p class="fade-in delay-2">Ya son 9 años transcurridos en este espectacular viaje juntos
+        como pareja, y hemos decidido consolidar
+         nuestra historia de amor, con tu valiosa presencia a nuestro lado</p>
+      <div class="scroll-indicator fade-in delay-3">
+        <span>Desliza para más información</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
   </header>
 
+  <!-- Nuestra historia -->
+  <section class="historia">
+    <div class="container">
+      <h2>Nuestra Historia</h2>
+      <div class="timeline">
+        <div class="timeline-item left fade-in-scroll">
+          <div class="timeline-content">
+            <h3>Nos conocimos</h3>
+            <p class="fecha">Enero 2020</p>
+            <p>El destino nos unió en una fiesta de amigos en común, desde entonces supimos que había algo especial.</p>
+          </div>
+        </div>
+        <div class="timeline-item right fade-in-scroll">
+          <div class="timeline-content">
+            <h3>Primer Viaje</h3>
+            <p class="fecha">Julio 2021</p>
+            <p>Nuestra aventura a la playa nos mostró lo bien que nos complementamos y lo felices que somos juntos.</p>
+          </div>
+        </div>
+        <div class="timeline-item left fade-in-scroll">
+          <div class="timeline-content">
+            <h3>La Propuesta</h3>
+            <p class="fecha">Diciembre 2024</p>
+            <p>Bajo las estrellas y con el corazón acelerado, Alex se arrodilló y Cris dijo "¡SÍ!"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detalles del evento -->
   <section class="details">
-    <h2>Detalles del Evento</h2>
-    <p><strong>Lugar:</strong> Hacienda El Encanto, Bogotá</p>
-    <p><strong>Hora:</strong> 3:00 p.m.</p>
-    <div id="countdown"></div>
+    <div class="container">
+      <h2>Detalles del Evento</h2>
+      
+      <div class="cards-container">
+        <div class="card fade-in-scroll">
+          <i class="fas fa-rings-wedding"></i>
+          <h3>Ceremonia</h3>
+          <p><strong>Lugar:</strong> Hacienda El Encanto, Bogotá</p>
+          <p><strong>Hora:</strong> 3:00 p.m.</p>
+          <p><strong>Fecha:</strong> 6 de diciembre de 2025</p>
+        </div>
+        
+        <div class="card fade-in-scroll">
+          <i class="fas fa-glass-cheers"></i>
+          <h3>Recepción</h3>
+          <p><strong>Lugar:</strong>Hacienda Inti Raimi</p>
+          <p><strong>Hora:</strong> 5:00 p.m.</p>
+          <p><strong>Código de vestimenta:</strong> Formal de noche</p>
+        </div>
+        
+        <div class="card fade-in-scroll">
+          <i class="fas fa-gift"></i>
+          <h3>Mesa de Regalos</h3>
+          <p>Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo más:</p>
+          <p><strong>Banco:</strong> Banco Nacional</p>
+          <p><strong>Cuenta:</strong> 1234-5678-9012-3456</p>
+        </div>
+      </div>
+      
+      <div class="countdown-container">
+        <h3>Faltan</h3>
+        <div id="countdown" class="countdown">
+          <div class="countdown-item">
+            <span id="days">00</span>
+            <span>Días</span>
+          </div>
+          <div class="countdown-item">
+            <span id="hours">00</span>
+            <span>Horas</span>
+          </div>
+          <div class="countdown-item">
+            <span id="minutes">00</span>
+            <span>Minutos</span>
+          </div>
+          <div class="countdown-item">
+            <span id="seconds">00</span>
+            <span>Segundos</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- Galería de fotos -->
+  <section class="galeria">
+    <div class="container">
+      <h2>Nuestros Momentos</h2>
+      <div class="gallery-grid">
+        <!-- Las imágenes se cargarán desde la carpeta "img" -->
+        <div class="gallery-item fade-in-scroll">
+          <img src="img/foto1.jpg" alt="Alex y Cris en la playa" loading="lazy">
+        </div>
+        <div class="gallery-item fade-in-scroll">
+          <img src="img/foto2.jpg" alt="Celebrando el cumpleaños de Cris" loading="lazy">
+        </div>
+        <div class="gallery-item fade-in-scroll">
+          <img src="img/foto3.jpg" alt="Viaje a las montañas" loading="lazy">
+        </div>
+        <div class="gallery-item fade-in-scroll">
+          <img src="img/foto4.jpg" alt="La propuesta" loading="lazy">
+        </div>
+        <div class="gallery-item fade-in-scroll">
+          <img src="img/foto5.jpg" alt="Aniversario" loading="lazy">
+        </div>
+        <div class="gallery-item fade-in-scroll">
+          <img src="img/foto6.jpg" alt="Celebrando con amigos" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mapa y ubicación -->
   <section class="mapa">
-    <h2>¿Cómo llegar?</h2>
-    <iframe src="https://www.google.com/maps/embed?..." width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <div class="container">
+      <h2>¿Cómo llegar?</h2>
+      
+      <div class="ubicaciones">
+        <div class="ubicacion fade-in-scroll">
+          <h3>Hacienda Inti Raimi</h3>
+          <p>Centro de evento campestre</p>
+          <p>Ubicación: Km 1 Vía a Puerto Tejada, Cali - Colombia</p>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.9284892678995!2d-74.07804232599884!3d4.5981135956638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMzUnNTMuMiJOIDc0wrAwNCc0MC45Ilc!5e0!3m2!1ses!2sco!4v1652301459000!5m2!1ses!2sco" 
+            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          <a href="https://maps.google.com" target="_blank">Ver en mapa</a>
+          </div>
+        
+        <div class="hoteles fade-in-scroll">
+          <h3>Hoteles Recomendados para hospedarse</h3>
+          <ul>
+            <li>
+              <h4>Casa Aurora Luxury Hotel, Pance</h4>
+              <p>Hotel más cercano a la hacienda</p>
+              <a href="https://casaauroraluxuryhotel.com/" target="_blank">Ver en sitio web</a>
+              <a href="https://maps.google.com" target="_blank">Ver en mapa</a>
+            </li>
+            <li>
+              <h4>Hotel MS Ciudad jardín</h4>
+              <a href="https://hotelesms.com/ms-ciudad-jardin/" target="_blank">Ver en sitio web</a>
+              <a href="https://maps.google.com" target="_blank">Ver en mapa</a>
+            </li>
+            <li>
+              <h4>NH Cali Royal</h4>
+              <a href="https://www.nh-hotels.com/co/hotel/nh-cali-royal" target="_blank">Ver en sitio web</a>
+              <a href="https://maps.google.com" target="_blank">Ver en mapa</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- Formulario de confirmación -->
   <section class="formulario">
-    <h2>Confirma tu Asistencia</h2>
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdEjEjemplo/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Cargando…</iframe>
+    <div class="container">
+      <h2>Confirma tu Asistencia</h2>
+      <p>Por favor confirma tu asistencia antes del 6 de noviembre de 2025</p>
+      <div class="form-container fade-in-scroll">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf8stwf6u6hsl0CEDUA4a3W9uVwTh5wjpkewvq4GJpT5R54lg/viewform?usp=header" 
+          width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">
+          Cargando...
+        </iframe>
+      </div>
+    </div>
   </section>
 
+  <!-- Footer -->
   <footer>
-    <p>Gracias por acompañarnos en este día tan especial 💕</p>
+    <div class="container">
+      <div class="footer-content">
+        <h2>Alex & Cris</h2>
+        <p>Gracias por acompañarnos en este día tan especial 💕</p>
+        </div>
+        <p class="copyright">© 2025 - Alex & Cris</p>
+      </div>
+    </div>
   </footer>
 </body>
 </html>
