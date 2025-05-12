@@ -5,13 +5,14 @@
   box-sizing: border-box;
 }
 
-/* Variables globales */
+/* Variables globales - Cambiadas a blanco, negro y gris */
 :root {
-  --primary-color: #d4b08c;
-  --secondary-color: #f1e8e0;
+  --primary-color: #333333;
+  --secondary-color: #f5f5f5;
   --text-color: #333333;
   --light-text: #ffffff;
-  --dark-bg: #2c2c2c;
+  --dark-bg: #1a1a1a;
+  --accent-color: #666666;
   --transition-speed: 0.3s;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -21,7 +22,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   color: var(--text-color);
   line-height: 1.6;
-  background-color: #fdfbf9;
+  background-color: #ffffff;
   overflow-x: hidden;
 }
 
@@ -94,7 +95,7 @@ h2::after {
   justify-content: center;
   text-align: center;
   color: var(--light-text);
-  background: url('img/hero-bg.jpg') no-repeat center center;
+  background: url('img/IMG2.png') no-repeat center center;
   background-size: cover;
 }
 
@@ -104,7 +105,7 @@ h2::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6); /* Oscurecido para el tema en blanco y negro */
 }
 
 .hero-content {
@@ -334,13 +335,14 @@ h2::after {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: var(--shadow);
-  height: 250px;
+  height: 500px;
 }
 
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+
   transition: transform var(--transition-speed);
 }
 
@@ -375,6 +377,32 @@ h2::after {
 
 .ubicacion iframe {
   border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.ubicacion .location-button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: background-color var(--transition-speed);
+}
+
+.ubicacion .location-button:hover {
+  background-color: var(--accent-color);
+}
+.ubicacion .link-mapa{
+  display: inline-block;
+  color: var(--light-text);
+  padding: 10px 110px;
+  
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: background-color var(--transition-speed);
 }
 
 .hoteles ul {
@@ -393,17 +421,25 @@ h2::after {
   color: var(--primary-color);
 }
 
+.hoteles .hotel-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
 .hoteles a {
   display: inline-block;
-  margin-top: 10px;
-  color: var(--primary-color);
+  padding: 8px 15px;
+  color: var(--light-text);
+  background-color: var(--primary-color);
   text-decoration: none;
-  font-weight: 600;
-  transition: color var(--transition-speed);
+  font-weight: 500;
+  border-radius: 5px;
+  transition: background-color var(--transition-speed);
 }
 
 .hoteles a:hover {
-  color: #b3946e;
+  background-color: var(--accent-color);
 }
 
 /* Formulario */
@@ -424,6 +460,16 @@ h2::after {
   box-shadow: var(--shadow);
   padding: 20px;
 }
+.form-button{
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+  text-decoration: none;
+}
 
 /* Footer */
 footer {
@@ -434,12 +480,12 @@ footer {
 }
 
 .footer-content h2 {
-  color: var(--primary-color);
+  color: var(--light-text);
   margin-bottom: 20px;
 }
 
 .footer-content h2::after {
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
 }
 
 .footer-icons {
@@ -454,7 +500,7 @@ footer {
 }
 
 .footer-icons a:hover {
-  color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 .copyright {
@@ -522,6 +568,11 @@ footer {
 
   .countdown-item {
     min-width: 80px;
+  }
+  
+  .hoteles .hotel-links {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 

@@ -1,9 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Control de la música de fondo
+  // Control de la música de fondo - reproducir automáticamente
   const bgMusic = document.getElementById('bg-music');
   const playButton = document.getElementById('play-music');
   const playIcon = document.getElementById('play-icon');
   const pauseIcon = document.getElementById('pause-icon');
+  
+  // Intentar reproducir automáticamente
+  const playPromise = bgMusic.play();
+  
+  if (playPromise !== undefined) {
+    playPromise.then(_ => {
+      // Reproducción automática exitosa
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'inline';
+      playButton.setAttribute('aria-label', 'Pausar música');
+    })
+    .catch(error => {
+      // Reproducción automática bloqueada por el navegador
+      console.log("Reproducción automática bloqueada, se requiere interacción del usuario");
+      // Dejamos visible el botón de play
+    });
+  }
   
   playButton.addEventListener('click', function() {
     if (bgMusic.paused) {
@@ -19,35 +36,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Cuenta regresiva
-  const weddingDate = new Date('December 6, 2025 15:00:00').getTime();
+  // Cuenta regresiva simplificada (solo meses y días)
+  const weddingDate = new Date('December 6, 2025 00:00:00');
   
   function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = weddingDate - now;
+    const now = new Date();
     
     // Si la fecha ya pasó
-    if (distance < 0) {
+    if (now >= weddingDate) {
+      document.getElementById('months').textContent = '00';
       document.getElementById('days').textContent = '00';
-      document.getElementById('hours').textContent = '00';
-      document.getElementById('minutes').textContent = '00';
-      document.getElementById('seconds').textContent = '00';
       return;
     }
+
+    // Calcular diferencia de meses
+    let months = (weddingDate.getFullYear() - now.getFullYear()) * 12;
+    months += weddingDate.getMonth() - now.getMonth();
     
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    // Calcular los días restantes después de contar los meses completos
+    const currentDate = new Date(now.getTime());
+    // Simulamos avanzar los meses completos
+    currentDate.setMonth(currentDate.getMonth() + months);
     
+    // Si el día objetivo es menor que el día actual después de avanzar los meses,
+    // entonces necesitamos restar un mes y calcular los días restantes
+    let days = 0;
+    if (weddingDate.getDate() < currentDate.getDate()) {
+      months--;
+      // Obtenemos el último día del mes anterior a la fecha de la boda
+      const lastDayOfPrevMonth = new Date(
+        weddingDate.getFullYear(),
+        weddingDate.getMonth(),
+        0
+      ).getDate();
+      days = lastDayOfPrevMonth - currentDate.getDate() + weddingDate.getDate();
+    } else {
+      days = weddingDate.getDate() - currentDate.getDate();
+    }
+    
+    // Actualizar los elementos en el DOM
+    document.getElementById('months').textContent = months < 10 ? '0' + months : months;
     document.getElementById('days').textContent = days < 10 ? '0' + days : days;
-    document.getElementById('hours').textContent = hours < 10 ? '0' + hours : hours;
-    document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
-    document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
   }
   
-  // Actualizar la cuenta regresiva cada segundo
-  setInterval(updateCountdown, 1000);
+  // Actualizar la cuenta regresiva cada día (86400000 ms = 1 día)
+  // Para efectos de visualización, lo actualizaremos cada hora
+  setInterval(updateCountdown, 3600000);
+  
+  // Llamamos inicialmente al cargar la página
   updateCountdown();
 
   // Animación de elementos al hacer scroll
