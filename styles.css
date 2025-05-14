@@ -86,6 +86,20 @@ h2::after {
   transform: scale(1.1);
 }
 
+.sticky-image {
+  position: sticky;
+  top: 0px; /* Distancia desde la parte superior */
+  z-index: 40;
+  width: auto; /* Ajusta según el tamaño de tu imagen */
+  height: auto;
+  pointer-events: none; /* Para que no interfiera con clics */
+  /* opacity: 0.85; Ligera transparencia */
+}
+.sticky-left {
+  position: fixed;
+  left: 0px;
+}
+
 /* Header y Hero */
 .hero {
   height: 100vh;
@@ -240,6 +254,34 @@ h2::after {
   border-radius: 50%;
   top: 15px;
 }
+/* Estilos para los iconos del itinerario */
+.timeline-icon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: var(--light-text);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  z-index: 2;
+}
+
+.timeline-item.left .timeline-icon {
+  right: -60px; /* Posición para elementos a la izquierda */
+  top: 15px;
+}
+
+.timeline-item.right .timeline-icon {
+  left: -60px; /* Posición para elementos a la derecha */
+  top: 15px;
+}
+
+.timeline-icon img {
+  width: 24px;
+  height: 24px;
+}
 
 .left {
   left: 0;
@@ -279,17 +321,9 @@ h2::after {
 .details {
   background-color: #ffffff;
 }
-
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin-bottom: 60px;
-}
-
 .card {
-  background: white;
+  background: var(--secondary-color); /* Cambio a fondo gris claro */
+  border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: var(--shadow);
   padding: 30px;
@@ -302,46 +336,57 @@ h2::after {
 
 .card:hover {
   transform: translateY(-10px);
-}
-
-.card i {
-  font-size: 40px;
-  color: var(--primary-color);
-  margin-bottom: 20px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 .card h3 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.card p {
+  color: #222; /* Texto más oscuro para mejor contraste */
+  font-weight: 500; /* Ligeramente más grueso */
+}
+
+.card img {
+  width: 60px;
+  height: auto;
   margin-bottom: 15px;
 }
 
 .countdown-container {
   text-align: center;
   margin-top: 60px;
+  background: url('img/IMG1.png') no-repeat center center;
+  background-size: cover;
+  padding: 40px 0;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.countdown-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Overlay oscuro para mejorar legibilidad */
+  z-index: 1;
+}
+
+.countdown-container h3,
+.countdown {
+  position: relative;
+  z-index: 2;
+  color: var(--light-text);
 }
 
 .countdown-container h3 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 20px;
-}
-
-.countdown {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.countdown-item {
-  background: var(--primary-color);
-  color: white;
-  border-radius: 8px;
-  padding: 15px;
-  min-width: 100px;
-}
-
-.countdown-item span:first-child {
-  display: block;
-  font-size: 2.5rem;
-  font-weight: bold;
 }
 
 /* Galería */
@@ -373,6 +418,38 @@ h2::after {
 .gallery-item:hover img {
   transform: scale(1.05);
 }
+
+
+.gift-section {
+  background: url('img/IMG4.png') no-repeat center center;
+  background-size: cover;
+  padding: 120px 0;
+  position: relative;
+  text-align: center;
+}
+
+.gift-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Overlay oscuro para mejorar legibilidad */
+  z-index: 1;
+}
+
+.gift-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.gift-section .textGifts {
+  font-family: 'Qeraldin', sans-serif;
+  font-size: 1rem;
+  color: white;
+}
+
 
 /* Mapa y ubicaciones */
 .mapa {
@@ -547,69 +624,110 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .hero h1 {
-    font-size: 3.5rem;
-  }
-
-  .hero p {
-    font-size: 1.2rem;
-  }
-
-  section {
-    padding: 60px 0;
-  }
-
-  h2 {
-    font-size: 2rem;
-  }
-
   .timeline::after {
-    left: 31px;
+    left: 50%; /* Mantenemos la línea centrada */
   }
   
   .timeline-item {
-    width: 100%;
-    padding-left: 70px;
-    padding-right: 25px;
+    width: 50%; /* Mantenemos el ancho del 50% */
+    padding: 10px 20px; /* Reducimos el padding */
   }
   
-  .timeline-item::after {
-    left: 21px;
-  }
-  
-  .right {
+  .timeline-item.left {
     left: 0;
   }
   
-  .cards-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .countdown {
-    flex-wrap: wrap;
-  }
-
-  .countdown-item {
-    min-width: 80px;
+  .timeline-item.right {
+    left: 50%;
   }
   
-  .hoteles .hotel-links {
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero h1 {
-    font-size: 2.8rem;
+  .timeline-item.left::after {
+    right: -10px;
   }
   
+  .timeline-item.right::after {
+    left: -10px;
+  }
+  
+  .timeline-content {
+    padding: 15px;
+    font-size: 0.9rem; /* Texto más pequeño en móvil */
+  }
+
+  /* Ajustes generales para móvil */
   section {
     padding: 40px 0;
   }
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  .container {
+    padding: 0 15px;
+  }
   
-  .gallery-grid {
-    grid-template-columns: 1fr;
+  /* Cards más adaptadas a móvil */
+  .card {
+    padding: 20px;
+    min-width: 250px;
+    margin-bottom: 20px;
+  }
+  
+  .countdown-item {
+    min-width: 70px; /* Más pequeño para móvil */
+    padding: 10px;
+  }
+}
+
+/* Ajustes adicionales para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .timeline-content {
+    padding: 12px;
+    font-size: 0.85rem;
+  }
+  
+  .timeline-item {
+    padding: 10px 15px; /* Reducimos más el padding */
+  }
+  
+  .countdown {
+    gap: 10px;
+  }
+  
+  .countdown-item span:first-child {
+    font-size: 2rem;
+  }
+  
+  .countdown-item {
+    min-width: 60px;
+    padding: 8px;
+  }
+  .sticky-image {
+    width: 100px; /* Ajustamos el tamaño de la imagen */
+    height: 100px;
+  }
+  
+  .timeline-icon {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .timeline-item.left .timeline-icon {
+    margin-top: 22px;
+    margin-right: -22px;
+    right: -65px;
+  }
+  
+  .timeline-item.right .timeline-icon {
+    margin-top: 22px;
+    margin-left: -22px;
+    left: -65px;
+  }
+  
+  .timeline-icon img {
+    width: 80px;
+    height: 80px;
   }
 }
