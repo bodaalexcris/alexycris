@@ -24,6 +24,7 @@ body {
   line-height: 1.6;
   background-color: #ffffff;
   overflow-x: hidden;
+  font-size:larger ;
 }
 
 h1, h2, h3, h4 {
@@ -46,7 +47,7 @@ h2 {
   text-align: center;
   margin-bottom: 40px;
   position: relative;
-  color: var(--primary-color);
+  color: #0f0f0f;
 }
 
 h2::after {
@@ -87,13 +88,15 @@ h2::after {
 }
 
 .sticky-image {
-  position: sticky;
-  top: 0px; /* Distancia desde la parte superior */
-  z-index: 40;
-  width: auto; /* Ajusta según el tamaño de tu imagen */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Abarcar todo el ancho */
   height: auto;
+  max-height: 150px; /* Altura máxima para que no ocupe demasiado espacio */
+  object-fit: cover; /* Asegura que la imagen cubra todo el espacio */
   pointer-events: none; /* Para que no interfiera con clics */
-  /* opacity: 0.85; Ligera transparencia */
+  z-index: 50;
 }
 .sticky-left {
   position: fixed;
@@ -108,9 +111,10 @@ h2::after {
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: var(--light-text);
+  color: #f5f5f5;
   background: url('img/bg1.png') no-repeat center center;
   background-size: cover;
+  border-radius: 5px;
 }
 .hero1 {
   height: 100vh;
@@ -122,6 +126,7 @@ h2::after {
   color: var(--light-text);
   background: url('img/IMG2.png') no-repeat center center;
   background-size: cover;
+  border-radius: 5px;
 }
 .overlay {
   position: absolute;
@@ -226,69 +231,108 @@ h2::after {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
+  padding: 20px 0;
 }
 
 .timeline::after {
   content: '';
   position: absolute;
-  width: 2px;
+  width: 1px;
   background-color: var(--primary-color);
   top: 0;
   bottom: 0;
   left: 50%;
-  margin-left: -1px;
+  margin-left: -0.5px;
 }
 
 .timeline-item {
-  padding: 10px 40px;
+  padding: 10px 0;
   position: relative;
   width: 50%;
+  margin-bottom: 30px;
 }
 
 .timeline-item::after {
+  display: none; /* Eliminamos los círculos anteriores */
+}
+
+.timeline-item .timeline-content::before {
   content: '';
   position: absolute;
-  width: 20px;
-  height: 20px;
+  top: 50%;
+  width: 25px;
+  height: 1px;
   background-color: var(--primary-color);
-  border-radius: 50%;
-  top: 15px;
 }
+
+.timeline-item.left .timeline-content::before {
+  right: -25px;
+}
+
+.timeline-item.right .timeline-content::before {
+  left: -25px;
+}
+
 /* Estilos para los iconos del itinerario */
 .timeline-icon {
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 40px;
   height: 40px;
-  background-color: var(--light-text);
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: var(--shadow);
-  z-index: 2;
+  background-color: transparent; /* Fondo transparente */
+  box-shadow: none; /* Sin sombra */
+  z-index: 3;
+}
+
+.timeline-icon-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent; /* Fondo transparente */
+  box-shadow: none; /* Sin sombra */
+  z-index: 3;
 }
 
 .timeline-item.left .timeline-icon {
-  right: -60px; /* Posición para elementos a la izquierda */
-  top: 15px;
+  right: -60px;
 }
 
 .timeline-item.right .timeline-icon {
-  left: -60px; /* Posición para elementos a la derecha */
-  top: 15px;
+  left: -60px;
+}
+
+.timeline-item.left .timeline-icon-right {
+  right: -60px;
+}
+
+.timeline-item.right .timeline-icon-right {
+  left: -60px;
 }
 
 .timeline-icon img {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
 }
 
 .left {
   left: 0;
+  text-align: right;
+  padding-right: 30px;
 }
 
 .right {
   left: 50%;
+  text-align: left;
+  padding-left: 30px;
 }
 
 .left::after {
@@ -300,21 +344,27 @@ h2::after {
 }
 
 .timeline-content {
-  padding: 20px;
-  background-color: white;
-  border-radius: 6px;
-  box-shadow: var(--shadow);
+  padding: 15px;
+  background-color: transparent; /* Hacemos el fondo transparente */
+  border-radius: 0;
+  box-shadow: none; /* Eliminamos la sombra */
+  position: relative;
 }
 
 .timeline-content h3 {
   margin-bottom: 10px;
   color: var(--primary-color);
 }
-
 .fecha {
   font-weight: bold;
-  color: #888;
-  margin-bottom: 10px;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.timeline-content p:not(.fecha) {
+  margin: 0;
 }
 
 /* Detalles del evento */
@@ -323,7 +373,7 @@ h2::after {
 }
 .card {
   background: var(--secondary-color); /* Cambio a fondo gris claro */
-  border: 1px solid #ddd;
+  border: 1px solid #717171;
   border-radius: 8px;
   box-shadow: var(--shadow);
   padding: 30px;
@@ -332,6 +382,7 @@ h2::after {
   max-width: 350px;
   text-align: center;
   transition: transform var(--transition-speed);
+  margin-left: 15px;
 }
 
 .card:hover {
@@ -342,10 +393,11 @@ h2::after {
 .card h3 {
   margin-bottom: 15px;
   font-size: 1.8rem;
+  color: rgba(0, 0, 0, 0.9);
 }
 
 .card p {
-  color: #222; /* Texto más oscuro para mejor contraste */
+  color: #0f0f0f; /* Texto más oscuro para mejor contraste */
   font-weight: 500; /* Ligeramente más grueso */
 }
 
@@ -449,6 +501,11 @@ h2::after {
   font-size: 1rem;
   color: white;
 }
+.gift-section .textGifts h3{
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 200px;
+}
 
 
 /* Mapa y ubicaciones */
@@ -514,29 +571,45 @@ h2::after {
   margin-bottom: 20px;
   padding: 20px;
   background: var(--secondary-color);
+  border: 1px solid #717171;
   border-radius: 8px;
 }
 
 .hoteles h4 {
   margin-bottom: 10px;
   color: var(--primary-color);
+  text-align: center;
 }
+.hoteles img{
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
 
 .hoteles .hotel-links {
   display: flex;
   gap: 15px;
   margin-top: 15px;
+  justify-content: center;
 }
 
 .hoteles a {
   display: inline-block;
   padding: 8px 15px;
   color: var(--light-text);
-  background-color: var(--primary-color);
+  /*background-color: var(--primary-color);*/
   text-decoration: none;
   font-weight: 500;
   border-radius: 5px;
   transition: background-color var(--transition-speed);
+  
+}
+.hoteles a img {
+  width: 50px;
+  height: auto;
+  margin-right: 5px;
 }
 
 .hoteles a:hover {
@@ -562,7 +635,7 @@ h2::after {
   padding: 20px;
 }
 .form-button{
-  background-color: var(--primary-color);
+  background-color:var(--dark-bg);
   color: var(--light-text);
   padding: 10px 20px;
   border-radius: 5px;
@@ -624,34 +697,62 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .timeline::after {
-    left: 50%; /* Mantenemos la línea centrada */
+  .sticky-image {
+    max-height: 100px; /* Altura máxima reducida para móviles */
   }
-  
+
+  /* El itinerario mantiene la estructura de dos columnas */
   .timeline-item {
-    width: 50%; /* Mantenemos el ancho del 50% */
-    padding: 10px 20px; /* Reducimos el padding */
+    padding: 5px 0;
+    margin-bottom: 20px;
+  }
+
+  .timeline-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .timeline-icon img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .timeline-icon-right {
+    width: 30px;
+    height: 30px;
+  }
+
+  .timeline-icon-right img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .left {
+    padding-right: 20px;
+  }
+
+  .right {
+    padding-left: 20px;
+  }
+
+  .timeline-item .timeline-content::before {
+    width: 15px;
+  }
+
+  .timeline-item.left .timeline-content::before {
+    right: -15px;
+  }
+
+  .timeline-item.right .timeline-content::before {
+    left: -15px;
   }
   
-  .timeline-item.left {
-    left: 0;
+  .timeline-item.left .timeline-icon {
+    right: -45px;
   }
   
-  .timeline-item.right {
-    left: 50%;
-  }
-  
-  .timeline-item.left::after {
-    right: -10px;
-  }
-  
-  .timeline-item.right::after {
-    left: -10px;
-  }
-  
-  .timeline-content {
-    padding: 15px;
-    font-size: 0.9rem; /* Texto más pequeño en móvil */
+  .timeline-item.right .timeline-icon {
+    left: -45px;
   }
 
   /* Ajustes generales para móvil */
@@ -705,29 +806,44 @@ footer {
     padding: 8px;
   }
   .sticky-image {
-    width: 100px; /* Ajustamos el tamaño de la imagen */
-    height: 100px;
+    max-height: 80px;
   }
   
   .timeline-icon {
     width: 25px;
     height: 25px;
   }
+
+  .timeline-icon img {
+    width: 45px;
+    height: 45px;
+    margin-right: 60px;
+  }
+
+  .timeline-icon-right {
+    width: 25px;
+    height: 25px;
+  }
+
+  .timeline-icon-right img {
+    width: 45px;
+    height: 45px;
+    margin-left: 30px;
+  }
   
   .timeline-item.left .timeline-icon {
-    margin-top: 22px;
-    margin-right: -22px;
-    right: -65px;
+    right: -37px;
   }
   
   .timeline-item.right .timeline-icon {
-    margin-top: 22px;
-    margin-left: -22px;
-    left: -65px;
+    left: -37px;
+  }
+  .fecha {
+    font-size: 0.8rem;
+  }
+
+  .timeline-content p:not(.fecha) {
+    font-size: 0.8rem;
   }
   
-  .timeline-icon img {
-    width: 80px;
-    height: 80px;
-  }
 }
