@@ -435,7 +435,7 @@ h2::after {
   max-width: 350px;
   text-align: center;
   transition: transform var(--transition-speed);
-  margin-left: 15px;
+  margin-left: 5px;
 }
 
 .card:hover {
