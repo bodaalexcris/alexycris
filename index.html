@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/qeraldin" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
                 
   <script defer src="scripts.js"></script>
 </head>
@@ -20,13 +23,13 @@
   
   <!-- Botón flotante para reproducir música -->
   <div class="music-control">
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="auto">
       <source src="cancion.mp3" type="audio/mpeg">
       Tu navegador no soporta audio HTML5.
     </audio>
     <button id="play-music" aria-label="Reproducir música">
       <i class="fas fa-play" id="play-icon"></i>
-      <i class="fas fa-pause" id="pause-icon" style="display: flex;""></i>
+      <i class="fas fa-pause" id="pause-icon" style="display: none;"></i>
     </button>
   </div>
 
@@ -217,9 +220,11 @@
               <div class="hotel-links">
                 <a href="https://casaauroraluxuryhotel.com/" target="_blank">
                   <img src="img/www.png" alt="Sitio Web">
+                  <p>Ver en Sitio Web</p>
                 </a>
                 <a href="https://maps.app.goo.gl/TMsy4hGDSb8voViS6" target="_blank">
-                  <img src="img/wedding-location.png" alt="Ver en Mapa"> 
+                  <img src="img/wedding-location.png" alt="Ver en Mapa">
+                  <p>Ver en Mapa</p>
                 </a>
 
               </div>
@@ -230,9 +235,11 @@
               <div class="hotel-links">
                 <a href="https://www.hotelpance122.com/" target="_blank">
                   <img src="img/www.png" alt="Sitio Web">
+                  <p>Ver en Sitio Web</p>
                 </a>
                 <a href="https://maps.app.goo.gl/LtgGGtRnaddCAmWV7" target="_blank">
                   <img src="img/wedding-location.png" alt="Ver en Mapa">
+                  <p>Ver en Mapa</p>
                 </a>
               </div>
             </li>
@@ -242,9 +249,11 @@
               <div class="hotel-links">
                 <a href="https://www.hilton.com/es/hotels/cloudru-tru-cali-sur/" target="_blank">
                   <img src="img/www.png" alt="Sitio Web">
+                  <p>Ver en Sitio Web</p>
                 </a>
                 <a href="https://maps.app.goo.gl/t4Xewem7JFkMev6Y9" target="_blank">
                   <img src="img/wedding-location.png" alt="Ver en Mapa">
+                  <p>Ver en Mapa</p>
                 </a>
               </div>
             </li>

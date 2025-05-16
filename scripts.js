@@ -1,33 +1,63 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Control de la música de fondo - reproducir automáticamente
+  // Control de la música de fondo
   const bgMusic = document.getElementById('bg-music');
   const playButton = document.getElementById('play-music');
   const playIcon = document.getElementById('play-icon');
   const pauseIcon = document.getElementById('pause-icon');
   
-  // Intentar reproducir automáticamente
-  const playPromise = bgMusic.play();
+  let hasUserScrolled = false;
+  let audioTriggered = false;
   
-  if (playPromise !== undefined) {
-    playPromise.then(_ => {
-      // Reproducción automática exitosa
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'inline';
-      playButton.setAttribute('aria-label', 'Pausar música');
-    })
-    .catch(error => {
-      // Reproducción automática bloqueada por el navegador
-      console.log("Reproducción automática bloqueada, se requiere interacción del usuario");
-      // Dejamos visible el botón de play
-    });
+  // Función para reproducir la música
+  function playMusic() {
+    if (audioTriggered) return; // Evitar múltiples intentos
+    
+    audioTriggered = true;
+    
+    bgMusic.play()
+      .then(() => {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'inline';
+        playButton.setAttribute('aria-label', 'Pausar música');
+        localStorage.setItem('musicPreference', 'enabled');
+      })
+      .catch(error => {
+        console.error("Error al reproducir música:", error);
+        // Si aún falla, mostramos el botón de reproducción tradicional
+        playIcon.style.display = 'inline';
+        pauseIcon.style.display = 'none';
+        audioTriggered = false; // Permitir reintentos
+      });
   }
   
+  // Detectar cuando el usuario comienza a desplazarse
+  window.addEventListener('scroll', function() {
+    if (!hasUserScrolled) {
+      hasUserScrolled = true;
+      playMusic();
+    }
+  });
+  
+  // Detectar también clics por si el usuario interactúa sin hacer scroll
+  document.addEventListener('click', function() {
+    if (!hasUserScrolled) {
+      hasUserScrolled = true;
+      playMusic();
+    }
+  });
+  
+  // Verificar si el usuario ya ha interactuado en sesiones anteriores
+  const hasInteractedBefore = localStorage.getItem('musicPreference') === 'enabled';
+  
+  if (hasInteractedBefore) {
+    // Si hay interacción previa guardada, intentamos reproducir directamente
+    playMusic();
+  }
+  
+  // Controlador de eventos para el botón de reproducción/pausa
   playButton.addEventListener('click', function() {
     if (bgMusic.paused) {
-      bgMusic.play();
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'inline';
-      playButton.setAttribute('aria-label', 'Pausar música');
+      playMusic();
     } else {
       bgMusic.pause();
       playIcon.style.display = 'inline';
@@ -75,13 +105,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Actualizar los elementos en el DOM
-    document.getElementById('months').textContent = months < 10 ? '0' + months : months;
+    document.getElementById('months').textContent = months < 10 ? '' + months : months;
     document.getElementById('days').textContent = days < 10 ? '0' + days : days;
   }
   
-  // Actualizar la cuenta regresiva cada día (86400000 ms = 1 día)
-  // Para efectos de visualización, lo actualizaremos cada hora
-  setInterval(updateCountdown, 3600000);
+  // Actualizar la cuenta regresiva cada día
+  setInterval(updateCountdown, 3600000); // Cada hora
   
   // Llamamos inicialmente al cargar la página
   updateCountdown();
