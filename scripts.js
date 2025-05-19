@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .catch(error => {
         console.error("Error al reproducir música:", error);
-        // Si aún falla, mostramos el botón de reproducción tradicional
         playIcon.style.display = 'inline';
         pauseIcon.style.display = 'none';
         audioTriggered = false; // Permitir reintentos
@@ -105,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Actualizar los elementos en el DOM
-    document.getElementById('months').textContent = months < 10 ? '' + months : months;
+    document.getElementById('months').textContent = months < 10 ? '0' + months : months;
     document.getElementById('days').textContent = days < 10 ? '0' + days : days;
   }
   
@@ -115,8 +114,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Llamamos inicialmente al cargar la página
   updateCountdown();
 
-  // Animación de elementos al hacer scroll
+  // Animación mejorada de elementos al hacer scroll
   const fadeElements = document.querySelectorAll('.fade-in-scroll');
+  const giftSection = document.querySelector('.textGifts');
   
   function checkFade() {
     fadeElements.forEach(element => {
@@ -125,12 +125,80 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (elementTop < window.innerHeight - elementVisible) {
         element.classList.add('active');
+        // Añadir clase "transition-smooth" para dispositivos móviles
+        if (window.innerWidth <= 768) {
+          element.classList.add('transition-smooth');
+        }
+      }
+    });
+    
+    // Revelación de la sección de regalo
+    if (giftSection) {
+      const giftSectionTop = giftSection.getBoundingClientRect().top;
+      if (giftSectionTop < window.innerHeight - 100) {
+        giftSection.classList.add('active');
+      }
+    }
+  }
+  
+  // Activar animación de transición suave entre secciones
+  function addTransitionToSections() {
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      if (sectionTop < window.innerHeight - 50) {
+        section.style.opacity = "1";
       } else {
-        element.classList.remove('active');
+        section.style.opacity = "0.8";
       }
     });
   }
   
-  window.addEventListener('scroll', checkFade);
+  window.addEventListener('scroll', function() {
+    checkFade();
+    addTransitionToSections();
+  });
+  
+  // Agregar efecto inicial a las secciones
+  document.querySelectorAll('section').forEach(section => {
+    section.style.transition = "opacity 0.8s ease";
+  });
+  
   checkFade(); // Verificar elementos visibles al cargar la página
+  
+  // Agregar animación al hacer hover en el itinerario
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  
+  timelineItems.forEach(item => {
+    item.addEventListener('mouseenter', function() {
+      const content = this.querySelector('.timeline-content');
+      content.style.transform = 'translateY(-5px)';
+      content.style.transition = 'transform 0.3s ease';
+    });
+    
+    item.addEventListener('mouseleave', function() {
+      const content = this.querySelector('.timeline-content');
+      content.style.transform = 'translateY(0)';
+    });
+  });
+  
+  // Animación especial para enlaces a hoteles
+  const hotelLinks = document.querySelectorAll('.hotel-links a');
+  
+  hotelLinks.forEach(link => {
+    link.addEventListener('mouseenter', function() {
+      const img = this.querySelector('img');
+      if (img) {
+        img.style.transform = 'scale(1.1) rotate(5deg)';
+        img.style.transition = 'transform 0.3s ease';
+      }
+    });
+    
+    link.addEventListener('mouseleave', function() {
+      const img = this.querySelector('img');
+      if (img) {
+        img.style.transform = 'scale(1) rotate(0deg)';
+      }
+    });
+  });
 });
