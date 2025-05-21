@@ -4,29 +4,59 @@ document.addEventListener('DOMContentLoaded', function() {
   const playButton = document.getElementById('play-music');
   const playIcon = document.getElementById('play-icon');
   const pauseIcon = document.getElementById('pause-icon');
+  const timeline = document.getElementById('timeline');
+  const timelineContainer = document.getElementById('timeline-container');
+  const duration = document.getElementById('duration');
   
   let hasUserScrolled = false;
   let audioTriggered = false;
   
   // Función para reproducir la música
   function playMusic() {
-    if (audioTriggered) return; // Evitar múltiples intentos
+    if (audioTriggered || !bgMusic) return; // Evitar múltiples intentos
     
     audioTriggered = true;
     
     bgMusic.play()
       .then(() => {
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'inline';
-        playButton.setAttribute('aria-label', 'Pausar música');
+        if (playIcon) playIcon.style.display = 'none';
+        if (pauseIcon) pauseIcon.style.display = 'inline';
+        if (playButton) playButton.setAttribute('aria-label', 'Pausar música');
         localStorage.setItem('musicPreference', 'enabled');
       })
       .catch(error => {
         console.error("Error al reproducir música:", error);
-        playIcon.style.display = 'inline';
-        pauseIcon.style.display = 'none';
+        if (playIcon) playIcon.style.display = 'inline';
+        if (pauseIcon) pauseIcon.style.display = 'none';
         audioTriggered = false; // Permitir reintentos
       });
+  }
+  
+  // Actualizar la barra de progreso - Solo si los elementos existen
+  if (bgMusic && timeline) {
+    bgMusic.addEventListener('timeupdate', function() {
+      const percent = (bgMusic.currentTime / bgMusic.duration) * 100;
+      timeline.style.width = percent + '%';
+    });
+  }
+  
+  // Cuando el audio está listo, establecer la duración
+  if (bgMusic && duration) {
+    bgMusic.addEventListener('loadedmetadata', function() {
+      const mins = Math.floor(bgMusic.duration / 60);
+      const secs = Math.floor(bgMusic.duration % 60);
+      duration.textContent = 
+        (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+    });
+  }
+  
+  // Permitir clic en la línea de tiempo para cambiar la posición
+  if (timelineContainer && bgMusic) {
+    timelineContainer.addEventListener('click', function(e) {
+      const rect = timelineContainer.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      bgMusic.currentTime = pos * bgMusic.duration;
+    });
   }
   
   // Detectar cuando el usuario comienza a desplazarse
@@ -54,69 +84,88 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Controlador de eventos para el botón de reproducción/pausa
-  playButton.addEventListener('click', function() {
-    if (bgMusic.paused) {
-      playMusic();
-    } else {
-      bgMusic.pause();
-      playIcon.style.display = 'inline';
-      pauseIcon.style.display = 'none';
-      playButton.setAttribute('aria-label', 'Reproducir música');
-    }
-  });
+  if (playButton && bgMusic) {
+    playButton.addEventListener('click', function() {
+      if (bgMusic.paused) {
+        playMusic();
+      } else {
+        bgMusic.pause();
+        if (playIcon) playIcon.style.display = 'inline';
+        if (pauseIcon) pauseIcon.style.display = 'none';
+        playButton.setAttribute('aria-label', 'Reproducir música');
+      }
+    });
+  }
 
-  // Cuenta regresiva simplificada (solo meses y días)
+  // Cuenta regresiva
   const weddingDate = new Date('December 6, 2025 00:00:00');
-  
+  const startDate = new Date('May 21, 2024 00:00:00');
+
   function updateCountdown() {
     const now = new Date();
     
+    // Elementos del DOM necesarios
+    const daysElem = document.getElementById('days');
+    const hoursElem = document.getElementById('hours');
+    const minutesElem = document.getElementById('minutes');
+    const secondsElem = document.getElementById('seconds');
+    const progressFillElem = document.getElementById('progress-fill');
+    const startDateElem = document.getElementById('start-date');
+    
+    // Verificar que todos los elementos existen
+    if (!daysElem || !hoursElem || !minutesElem || !secondsElem) {
+      console.warn("Algunos elementos de la cuenta regresiva no encontrados");
+      return; // Salimos de la función si faltan elementos
+    }
+    
     // Si la fecha ya pasó
     if (now >= weddingDate) {
-      document.getElementById('months').textContent = '00';
-      document.getElementById('days').textContent = '00';
+      daysElem.textContent = '00';
+      hoursElem.textContent = '00';
+      minutesElem.textContent = '00';
+      secondsElem.textContent = '00';
+      if (progressFillElem) progressFillElem.style.width = '100%';
       return;
     }
 
-    // Calcular diferencia de meses
-    let months = (weddingDate.getFullYear() - now.getFullYear()) * 12;
-    months += weddingDate.getMonth() - now.getMonth();
+    // Calcular diferencia de tiempo
+    const diff = weddingDate.getTime() - now.getTime();
     
-    // Calcular los días restantes después de contar los meses completos
-    const currentDate = new Date(now.getTime());
-    // Simulamos avanzar los meses completos
-    currentDate.setMonth(currentDate.getMonth() + months);
-    
-    // Si el día objetivo es menor que el día actual después de avanzar los meses,
-    // entonces necesitamos restar un mes y calcular los días restantes
-    let days = 0;
-    if (weddingDate.getDate() < currentDate.getDate()) {
-      months--;
-      // Obtenemos el último día del mes anterior a la fecha de la boda
-      const lastDayOfPrevMonth = new Date(
-        weddingDate.getFullYear(),
-        weddingDate.getMonth(),
-        0
-      ).getDate();
-      days = lastDayOfPrevMonth - currentDate.getDate() + weddingDate.getDate();
-    } else {
-      days = weddingDate.getDate() - currentDate.getDate();
-    }
+    // Convertir a días, horas, minutos, segundos
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
     
     // Actualizar los elementos en el DOM
-    document.getElementById('months').textContent = months < 10 ? '0' + months : months;
-    document.getElementById('days').textContent = days < 10 ? '0' + days : days;
+    daysElem.textContent = days < 10 ? '0' + days : days;
+    hoursElem.textContent = hours < 10 ? '0' + hours : hours;
+    minutesElem.textContent = minutes < 10 ? '0' + minutes : minutes;
+    secondsElem.textContent = seconds < 10 ? '0' + seconds : seconds;
+    
+    // Actualizar la barra de progreso si existe
+    if (progressFillElem) {
+      const totalDuration = weddingDate.getTime() - startDate.getTime();
+      const elapsedTime = now.getTime() - startDate.getTime();
+      const progressPercentage = Math.min(100, (elapsedTime / totalDuration) * 100);
+      progressFillElem.style.width = progressPercentage + '%';
+    }
+    
+    // Actualizar la fecha actual si existe el elemento
+    if (startDateElem) {
+      startDateElem.textContent = now.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+    }
+  }
+
+  // Iniciar el contador si los elementos existen
+  if (document.getElementById('countdown')) {
+    // Actualizar la cuenta regresiva cada segundo para que sea más precisa
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   }
   
-  // Actualizar la cuenta regresiva cada día
-  setInterval(updateCountdown, 3600000); // Cada hora
-  
-  // Llamamos inicialmente al cargar la página
-  updateCountdown();
-
-  // Animación mejorada de elementos al hacer scroll
+  // Animación de elementos al hacer scroll
   const fadeElements = document.querySelectorAll('.fade-in-scroll');
-  const giftSection = document.querySelector('.textGifts');
   
   function checkFade() {
     fadeElements.forEach(element => {
@@ -125,80 +174,10 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (elementTop < window.innerHeight - elementVisible) {
         element.classList.add('active');
-        // Añadir clase "transition-smooth" para dispositivos móviles
-        if (window.innerWidth <= 768) {
-          element.classList.add('transition-smooth');
-        }
-      }
-    });
-    
-    // Revelación de la sección de regalo
-    if (giftSection) {
-      const giftSectionTop = giftSection.getBoundingClientRect().top;
-      if (giftSectionTop < window.innerHeight - 100) {
-        giftSection.classList.add('active');
-      }
-    }
-  }
-  
-  // Activar animación de transición suave entre secciones
-  function addTransitionToSections() {
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-      const sectionTop = section.getBoundingClientRect().top;
-      if (sectionTop < window.innerHeight - 50) {
-        section.style.opacity = "1";
-      } else {
-        section.style.opacity = "0.8";
       }
     });
   }
   
-  window.addEventListener('scroll', function() {
-    checkFade();
-    addTransitionToSections();
-  });
-  
-  // Agregar efecto inicial a las secciones
-  document.querySelectorAll('section').forEach(section => {
-    section.style.transition = "opacity 0.8s ease";
-  });
-  
+  window.addEventListener('scroll', checkFade);
   checkFade(); // Verificar elementos visibles al cargar la página
-  
-  // Agregar animación al hacer hover en el itinerario
-  const timelineItems = document.querySelectorAll('.timeline-item');
-  
-  timelineItems.forEach(item => {
-    item.addEventListener('mouseenter', function() {
-      const content = this.querySelector('.timeline-content');
-      content.style.transform = 'translateY(-5px)';
-      content.style.transition = 'transform 0.3s ease';
-    });
-    
-    item.addEventListener('mouseleave', function() {
-      const content = this.querySelector('.timeline-content');
-      content.style.transform = 'translateY(0)';
-    });
-  });
-  
-  // Animación especial para enlaces a hoteles
-  const hotelLinks = document.querySelectorAll('.hotel-links a');
-  
-  hotelLinks.forEach(link => {
-    link.addEventListener('mouseenter', function() {
-      const img = this.querySelector('img');
-      if (img) {
-        img.style.transform = 'scale(1.1) rotate(5deg)';
-        img.style.transition = 'transform 0.3s ease';
-      }
-    });
-    
-    link.addEventListener('mouseleave', function() {
-      const img = this.querySelector('img');
-      if (img) {
-        img.style.transform = 'scale(1) rotate(0deg)';
-      }
-    });
-  });
 });

@@ -36,6 +36,7 @@ h1, h2, h3, h4 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  justify-items: center;
 }
 
 section {
@@ -112,7 +113,7 @@ h2::after {
   justify-content: center;
   text-align: center;
   color: #f5f5f5;
-  background: url('img/IMG_2210.webp') no-repeat center center;
+  background: url('img/1.webp') no-repeat center center;
   background-size: cover;
   border-radius: 5px;
   animation: fadeInBlur 1.5s ease-out;
@@ -126,7 +127,7 @@ h2::after {
   justify-content: center;
   text-align: center;
   color: var(--light-text);
-  background: url('img/IMG_2202.webp') no-repeat center center;
+  background: url('img/2.webp') no-repeat center center;
   background-size: cover;
   border-radius: 5px;
   animation: slideReveal 1.5s ease-out;
@@ -180,9 +181,10 @@ h2::after {
   padding: 0 20px;
 }
 .hero-content .text1 {
-  font-family: 'Oranienbaum', sans-serif;
-  font-size: 1.5rem;
+  font-family: 'DM Serif Display', sans-serif;
+  font-size: 1.3rem;
   margin-bottom: 5px;
+  font-style: italic;
 }
 
 .text1 {
@@ -240,6 +242,37 @@ h2::after {
 .hero p {                                             
   font-size: 5.5rem;
   margin-bottom: 5px;
+}
+
+.hero-names {
+  font-family: 'Oranienbaum', sans-serif;
+  color: white;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-names .name-top {
+  font-size: 5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+}
+
+.hero-names .name-and {
+  font-size: 4rem;
+  margin-left: 3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+}
+
+.hero-names .name-bottom {
+  font-size: 5rem;
+  margin-left: 6rem;
+  font-weight: 300;
 }
 
 .scroll-indicator {
@@ -584,7 +617,7 @@ h2::after {
 .countdown-container {
   text-align: center;
   margin-top: 60px;
-  background: url('img/IMG_2188.webp') no-repeat center center;
+  background: url('img/3.webp') no-repeat center center;
   height: auto;
   width: auto;
   background-size: cover;
@@ -650,7 +683,7 @@ h2::after {
 
 
 .gift-section {
-  background: url('img/IMG_2212.webp') no-repeat center center;
+  background: url('img/4.webp') no-repeat center center;
   background-size: cover;
   padding: 120px 0;
   position: relative;
@@ -684,9 +717,11 @@ h2::after {
   margin-bottom: 200px;
 }
 .gift-section .textGifts p {
+  font-family: 'DM Serif Display', sans-serif;
   font-size: 1.2rem;
   color: var(--light-text);
   margin-bottom: 20px;
+  font-style: italic;
 }
 
 .textGifts {
@@ -735,9 +770,11 @@ h2::after {
   min-width: 300px;
 }
 
-.ubicacion h3, .hoteles h3 {
+.ubicacion h3, .hoteles h3, .ubicacion p{
   margin-bottom: 20px;
   color: #0f0f0f;
+  text-align: center;
+  font-size: 1.4rem;
 }
 
 .ubicacion p {
@@ -777,6 +814,7 @@ h2::after {
 .hoteles ul {
   list-style: none;
 }
+
 
 .hoteles li {
   margin-bottom: 20px;
@@ -981,11 +1019,87 @@ footer {
   transform: translateY(0);
 }
 
+.minimal-player {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: transparent;
+  margin-top: 20px;
+  position: relative;
+  z-index: 5;
+}
+
+.minimal-player button {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0;
+  transition: transform 0.2s;
+}
+
+.minimal-player button:hover {
+  transform: scale(1.1);
+}
+
+.minimal-player .timeline-container {
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.3);
+  flex-grow: 1;
+  max-width: 120px;
+  position: relative;
+  cursor: pointer;
+}
+
+.minimal-player .timeline {
+  position: absolute;
+  width: 0%;
+  height: 100%;
+  background-color: white;
+  transition: width 0.1s linear;
+}
+
+.minimal-player .time {
+  color: white;
+  font-size: 10px;
+  opacity: 0.8;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
 
+  .minimal-player {
+    margin-top: 15px;
+  }
+  
+  .minimal-player .timeline-container {
+    max-width: 80px;
+  }
+
   .transition-smooth {
     transition-duration: 0.8s;
+  }
+
+  .hero-names .name-top {
+    margin-left: -4.5rem;
+    font-size: 3.5rem;
+  }
+  
+  .hero-names .name-and {
+    font-size: 3rem;
+    margin-left: 2rem;
+  }
+  
+  .hero-names .name-bottom {
+    font-size: 3.5rem;
+    margin-left: 4rem;
   }
 
   .sticky-image {
@@ -1099,6 +1213,43 @@ footer {
 
 /* Ajustes adicionales para pantallas muy pequeñas */
 @media (max-width: 480px) {
+
+  .minimal-player {
+    margin-top: 140px;
+
+  }
+  
+  .minimal-player button {
+    width: 24px;
+    height: 24px;
+    font-size: 10px;
+    color: white;
+  }
+  
+  .minimal-player .timeline-container {
+    max-width: 60px;
+    height: 1px;
+  }
+  
+  .minimal-player .time {
+
+    font-size: 16px;
+  }
+
+  .hero-names .name-top {
+    font-size: 3rem;
+  }
+  
+  .hero-names .name-and {
+    font-size: 2.5rem;
+    margin-left: 1.5rem;
+  }
+  
+  .hero-names .name-bottom {
+    font-size: 3rem;
+    margin-left: 3rem;
+  }
+
   .timeline-content {
     padding: 12px;
     font-size: 0.85rem;
