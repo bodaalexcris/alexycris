@@ -639,7 +639,8 @@ h2::after {
 }
 
 .countdown-container h3,
-.countdown {
+.countdown,
+.progress-container {
   position: relative;
   z-index: 2;
   color: var(--light-text);
@@ -651,34 +652,40 @@ h2::after {
   margin-bottom: 20px;
 }
 
-/* Galería */
-.galeria {
-  background-color: var(--secondary-color);
+.progress-container {
+  max-width: 300px;
+  margin: 30px auto 10px;
+  padding: 0;
+  position: relative;
+  z-index: 2;
 }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.gallery-item {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  height: 500px;
-}
-
-.gallery-item img {
+.progress-bar {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  transition: transform var(--transition-speed);
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: visible;
 }
 
-.gallery-item:hover img {
-  transform: scale(1.05);
+.progress-fill {
+  display: none; /* Ocultamos el relleno tradicional */
+}
+
+.progress-dot {
+  width: 6px;
+  height: 6px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+/* Ocultar las fechas de inicio y fin */
+.progress-dates {
+  display: none;
 }
 
 
@@ -804,7 +811,7 @@ h2::after {
   display: inline-block;
   color: var(--light-text);
   padding: 10px 110px;
-  
+  justify-items: center;
   border-radius: 5px;
   text-decoration: none;
   margin-top: 10px;

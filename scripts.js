@@ -102,60 +102,54 @@ document.addEventListener('DOMContentLoaded', function() {
   const startDate = new Date('May 21, 2024 00:00:00');
 
   function updateCountdown() {
-    const now = new Date();
-    
-    // Elementos del DOM necesarios
-    const daysElem = document.getElementById('days');
-    const hoursElem = document.getElementById('hours');
-    const minutesElem = document.getElementById('minutes');
-    const secondsElem = document.getElementById('seconds');
-    const progressFillElem = document.getElementById('progress-fill');
-    const startDateElem = document.getElementById('start-date');
-    
-    // Verificar que todos los elementos existen
-    if (!daysElem || !hoursElem || !minutesElem || !secondsElem) {
-      console.warn("Algunos elementos de la cuenta regresiva no encontrados");
-      return; // Salimos de la función si faltan elementos
-    }
-    
-    // Si la fecha ya pasó
-    if (now >= weddingDate) {
-      daysElem.textContent = '00';
-      hoursElem.textContent = '00';
-      minutesElem.textContent = '00';
-      secondsElem.textContent = '00';
-      if (progressFillElem) progressFillElem.style.width = '100%';
-      return;
-    }
-
-    // Calcular diferencia de tiempo
-    const diff = weddingDate.getTime() - now.getTime();
-    
-    // Convertir a días, horas, minutos, segundos
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    
-    // Actualizar los elementos en el DOM
-    daysElem.textContent = days < 10 ? '0' + days : days;
-    hoursElem.textContent = hours < 10 ? '0' + hours : hours;
-    minutesElem.textContent = minutes < 10 ? '0' + minutes : minutes;
-    secondsElem.textContent = seconds < 10 ? '0' + seconds : seconds;
-    
-    // Actualizar la barra de progreso si existe
-    if (progressFillElem) {
-      const totalDuration = weddingDate.getTime() - startDate.getTime();
-      const elapsedTime = now.getTime() - startDate.getTime();
-      const progressPercentage = Math.min(100, (elapsedTime / totalDuration) * 100);
-      progressFillElem.style.width = progressPercentage + '%';
-    }
-    
-    // Actualizar la fecha actual si existe el elemento
-    if (startDateElem) {
-      startDateElem.textContent = now.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
-    }
+  const now = new Date();
+  
+  // Elementos del DOM necesarios
+  const daysElem = document.getElementById('days');
+  const hoursElem = document.getElementById('hours');
+  const minutesElem = document.getElementById('minutes');
+  const secondsElem = document.getElementById('seconds');
+  const progressDot = document.getElementById('progress-dot');
+  
+  // Verificar que todos los elementos existen
+  if (!daysElem || !hoursElem || !minutesElem || !secondsElem) {
+    console.warn("Algunos elementos de la cuenta regresiva no encontrados");
+    return;
   }
+  
+  // Si la fecha ya pasó
+  if (now >= weddingDate) {
+    daysElem.textContent = '00';
+    hoursElem.textContent = '00';
+    minutesElem.textContent = '00';
+    secondsElem.textContent = '00';
+    if (progressDot) progressDot.style.left = '100%';
+    return;
+  }
+
+  // Calcular diferencia de tiempo
+  const diff = weddingDate.getTime() - now.getTime();
+  
+  // Convertir a días, horas, minutos, segundos
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  
+  // Actualizar los elementos en el DOM
+  daysElem.textContent = days < 10 ? '0' + days : days;
+  hoursElem.textContent = hours < 10 ? '0' + hours : hours;
+  minutesElem.textContent = minutes < 10 ? '0' + minutes : minutes;
+  secondsElem.textContent = seconds < 10 ? '0' + seconds : seconds;
+  
+  // Actualizar la posición del punto en la línea de progreso
+  if (progressDot) {
+    const totalDuration = weddingDate.getTime() - startDate.getTime();
+    const elapsedTime = now.getTime() - startDate.getTime();
+    const progressPercentage = Math.min(100, (elapsedTime / totalDuration) * 100);
+    progressDot.style.left = progressPercentage + '%';
+  }
+}
 
   // Iniciar el contador si los elementos existen
   if (document.getElementById('countdown')) {
