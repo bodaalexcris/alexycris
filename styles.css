@@ -112,7 +112,7 @@ h2::after {
   border-radius: 5px;
   animation: fadeInBlur 1.5s ease-out;
   z-index: 2;
-  margin-top: 80px;
+  margin-top: 70px;
 }
 .hero1 {
   height: 80vh;
@@ -252,7 +252,7 @@ h2::after {
   line-height: 1;
   position: relative;
   z-index: 2;
-  margin-top: 340px;
+  margin-top: 140px;
 }
 
 .hero-names .name-top {
