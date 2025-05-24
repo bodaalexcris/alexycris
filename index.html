@@ -15,7 +15,7 @@
   <script defer src="scripts.js"></script>
 </head>
 
-
+<body>
   <!-- Imagen sticky que permanece durante el scroll -->
   <img src="img/stickyfinal1.png" alt="Decoración" class="sticky-image sticky-left">
 
@@ -28,21 +28,19 @@
         <div class="name-and">&</div>
         <div class="name-bottom">Cris</div>
         
-        <!-- Reproductor minimalista dentro del hero -->
-        <div class="minimal-player">
+      </div>
+    </div>
+  </header>
+  <div class="music-control">
           <button id="play-music" aria-label="Reproducir música">
             <i class="fas fa-play" id="play-icon"></i>
             <i class="fas fa-pause" id="pause-icon" style="display: none;"></i>
           </button>
-          
           <audio id="bg-music" loop preload="auto">
             <source src="cancion.mp3" type="audio/mpeg">
             Tu navegador no soporta audio HTML5.
           </audio>
-        </div>
-      </div>
-    </div>
-  </header>
+  </div>
   <section>
     <div class="hero1">
       <div class="overlay1"></div>
@@ -182,6 +180,10 @@
       <h3>Faltan</h3>
       <div id="countdown" class="countdown">
         <div class="countdown-item">
+          <span id="months">00</span>
+          <span>Meses</span>
+        </div>
+        <div class="countdown-item">
           <span id="days">00</span>
           <span>Días</span>
         </div>
@@ -192,10 +194,6 @@
         <div class="countdown-item">
           <span id="minutes">00</span>
           <span>Minutos</span>
-        </div>
-        <div class="countdown-item">
-          <span id="seconds">00</span>
-          <span>Segundos</span>
         </div>
       </div>
       
