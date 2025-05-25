@@ -241,7 +241,7 @@ h2::after {
 .hero-names {
   font-family: "Italianno", cursive;
   font-size: 48px;
-  color: black;
+  color: white;
   text-align: left;
   display: flex;
   flex-direction: column;
