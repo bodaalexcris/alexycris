@@ -240,9 +240,7 @@ h2::after {
 
 .hero-names {
   font-family: "Italianno", cursive;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 18px;
+  font-size: 48px;
   color: black;
   text-align: left;
   display: flex;
@@ -256,7 +254,7 @@ h2::after {
 }
 
 .hero-names .name-top {
-  font-size: 5rem;
+  font-size: 6rem;
   font-weight: 300;
   margin-right: 6rem;
   margin-bottom: -20px;
@@ -1130,16 +1128,16 @@ footer {
 
   .hero-names .name-top {
     margin-left: -2.5rem;
-    font-size: 3.5rem;
+    font-size: 4.5rem;
   }
   
   .hero-names .name-and {
     font-size: 3rem;
-    margin-left: 2rem;
+    margin-left: 3rem;
   }
   
   .hero-names .name-bottom {
-    font-size: 3.5rem;
+    font-size: 4.5rem;
     margin-left: 4rem;
   }
 
@@ -1267,17 +1265,17 @@ footer {
   }
 
   .hero-names .name-top {
-    font-size: 3rem;
+    font-size: 4rem;
   }
   
   .hero-names .name-and {
-    font-size: 2.5rem;
-    margin-left: 1.5rem;
+    font-size: 3.5rem;
+    margin-left: 2.5rem;
   }
   
   .hero-names .name-bottom {
-    font-size: 3rem;
-    margin-left: 3rem;
+    font-size: 4rem;
+    margin-left: 3.8rem;
   }
 
   .timeline-content {
