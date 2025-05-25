@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function checkFade() {
     fadeElements.forEach(element => {
       const elementTop = element.getBoundingClientRect().top;
-      const elementVisible = 400; // Punto en que el elemento se vuelve visible
+      const elementVisible = 250; // Punto en que el elemento se vuelve visible
       
       if (elementTop < window.innerHeight - elementVisible) {
         element.classList.add('active');
