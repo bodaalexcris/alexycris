@@ -112,7 +112,7 @@ h2::after {
   border-radius: 5px;
   animation: fadeInBlur 1.5s ease-out;
   z-index: 2;
-  margin-top: 70px;
+  margin-top: 40px;
 }
 .hero1 {
   height: 80vh;
@@ -176,10 +176,9 @@ h2::after {
   padding: 0 20px;
 }
 .hero-content .text1 {
-  font-family: 'Tangerine', cursive;
-  font-size: 2.3rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
   margin-bottom: 5px;
-  font-style: italic;
 }
 
 .text1 {
@@ -240,24 +239,27 @@ h2::after {
 }
 
 .hero-names {
-  font-family: 'Tangerine', cursive;
-  font-weight: 700;
+  font-family: "Italianno", cursive;
+  font-weight: 400;
   font-style: normal;
-  font-size: 2rem;
-  color: white;
+  font-size: 18px;
+  color: black;
   text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items:flex-start;
   line-height: 1;
-  position: relative;
+  position:relative ;
   z-index: 2;
-  margin-top: 140px;
+  margin-top: 580px;
+  margin-left: -160px;
+
 }
 
 .hero-names .name-top {
   font-size: 5rem;
   font-weight: 300;
+  margin-right: 6rem;
   margin-bottom: -20px;
 }
 
@@ -718,17 +720,16 @@ h2::after {
   color: white;
 }
 .gift-section .textGifts h3{
-  font-family: 'Tangerine', cursive;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 200px;
 }
 .gift-section .textGifts p {
-  font-family: 'Tangerine', cursive;
-  font-size: 1.8rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
   color: var(--light-text);
   margin-bottom: 20px;
-  font-style: italic;
 }
 
 .textGifts {
@@ -1129,7 +1130,7 @@ footer {
   }
 
   .hero-names .name-top {
-    margin-left: -4.5rem;
+    margin-left: -2.5rem;
     font-size: 3.5rem;
   }
   
