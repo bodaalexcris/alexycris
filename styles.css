@@ -125,7 +125,7 @@ h2::after {
   background: url('img/2.webp') no-repeat center center;
   background-size: cover;
   border-radius: 5px;
-  animation: slideReveal 1.5s ease-out;
+  /* animation: slideReveal 1.5s ease-out; */
   margin-top: -40px; /* Crea un ligero solapamiento */
 }
 
