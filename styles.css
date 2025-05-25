@@ -249,7 +249,7 @@ h2::after {
   line-height: 1;
   position:relative ;
   z-index: 2;
-  margin-top: 470px;
+  margin-top: 450px;
   margin-left: -140px;
 }
 
@@ -1263,7 +1263,7 @@ footer {
     height: 40px;
     font-size: 16px;
   }
-
+  
   .hero-names .name-top {
     font-size: 4rem;
   }
@@ -1340,6 +1340,34 @@ footer {
 
   .timeline-content p:not(.fecha) {
     font-size: 1rem;
+  }
+  
+}
+@media (max-width: 380px) {
+  .hero h1 {
+    font-size: 3rem;
+  }
+  
+  .hero p {
+    font-size: 4rem;
+  }
+  .hero-names {
+    font-size: 36px;
+    margin-top: 350px;
+    margin-left: -100px;
+  }
+  .hero-names .name-top {
+    font-size: 3.5rem;
+  }
+  
+  .hero-names .name-and {
+    font-size: 3rem;
+    margin-left: 2.5rem;
+  }
+  
+  .hero-names .name-bottom {
+    font-size: 3.5rem;
+    margin-left: 3.8rem;
   }
   
 }
